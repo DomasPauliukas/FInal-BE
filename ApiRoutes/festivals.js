@@ -1,10 +1,10 @@
 const express = require('express')
-const { getFestivals, getFestivalById, createFestival, updateFestival, deleteFestival, addArtistToFestival } = require('../controllers/festivalController')
+const { getAllFestivals, getFestivalById, createFestival, updateFestival, deleteFestival, addArtistToFestival } = require('../controllers/festivalController')
 
 
 const router = express.Router()
 
-router.get('/', getFestivals)
+router.get('/', getAllFestivals)
 router.get('/:id', getFestivalById)
 router.post('/', createFestival)
 router.put('/:id', updateFestival)

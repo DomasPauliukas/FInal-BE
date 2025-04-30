@@ -1,7 +1,7 @@
-const Artist = require("../models/artistsModel")
+const Artist = require("../models/artistModel")
 
 
-async function getArtists(req, res) {
+async function getAllArtists(req, res) {
   try {
     const artists = await Artist.find()
     res.send(artists)
@@ -66,7 +66,7 @@ async function deleteArtist(req, res) {
 }
 
 module.exports = {
-  getArtists,
+  getAllArtists,
   getArtistById,
   createArtist,
   updateArtist,

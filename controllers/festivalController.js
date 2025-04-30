@@ -1,6 +1,6 @@
 const Festival = require("../models/festivalModel")
 
-async function getFestivals(req, res) { 
+async function getAllFestivals(req, res) { 
   try {
     const festivals = await Festival.find()
     res.send(festivals)
@@ -84,7 +84,7 @@ async function addArtistToFestival(req, res) {
 }
 
 module.exports = {
-  getFestivals,
+  getAllFestivals,
   getFestivalById,
   createFestival,
   updateFestival,
