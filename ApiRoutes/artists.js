@@ -1,8 +1,8 @@
 const express = require('express')
-const { getArtists, getArtistById, deleteArtist, updateArtist, createArtist } = require('../controllers/artistController')
+const { getAllArtists, getArtistById, deleteArtist, updateArtist, createArtist } = require('../controllers/artistController')
 const router = express.Router()
 
-router.get('/', getArtists)
+router.get('/', getAllArtists)
 router.get('/:id', getArtistById)
 router.post('/', createArtist)
 router.put('/:id', updateArtist)
