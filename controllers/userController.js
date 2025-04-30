@@ -29,7 +29,7 @@ const register = async (req, res) => {
             name,
             surname,
             age,
-            role: req.body.role || ROLES.USER
+            // role: req.body.role || ROLES.USER
         })
         await newUser.save()
 
