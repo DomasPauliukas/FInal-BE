@@ -11,7 +11,14 @@ app.use(cors())
 app.use(express.json())
 
 
+const festivalRoutes = require('./ApiRoutes/festivals')
+const artistRoutes = require('./ApiRoutes/artists')
 
+
+
+
+app.use('/api/festivals', festivalRoutes)
+app.use('/api/artists', artistRoutes)
 
 app.get('/', (req, res) => {
   res.send('Hello World, from BE!')
