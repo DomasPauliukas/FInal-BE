@@ -1,6 +1,7 @@
 const express = require('express')
 const process = require('process')
 require('dotenv').config()
+require('./db.js')
 
 const app = express()
 const cors = require('cors')
