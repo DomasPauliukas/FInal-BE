@@ -16,8 +16,7 @@ const artistRoutes = require('./ApiRoutes/artists')
 const scheduleRoutes = require('./ApiRoutes/schedules')
 const stageRoutes = require('./ApiRoutes/stages')
 const ticketRoutes = require('./ApiRoutes/tickets')
-
-
+const userRoutes = require('./ApiRoutes/users')
 
 
 app.use('/api/festivals', festivalRoutes)
@@ -25,7 +24,7 @@ app.use('/api/artists', artistRoutes)
 app.use('/api/schedules', scheduleRoutes)
 app.use('/api/stages', stageRoutes)
 app.use('/api/tickets', ticketRoutes)
-
+app.use('/api/users', userRoutes)
 
 
 app.get('/', (req, res) => {
