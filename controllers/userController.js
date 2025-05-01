@@ -5,7 +5,6 @@ const process = require('process')
 
 const User = require('../models/userModel')
 const Ticket = require('../models/ticketModel')
-const ROLES = require('../config/roles')
 
 const register = async (req, res) => {
     const { username, email, password, name, surname, age } = req.body
