@@ -1,4 +1,5 @@
 const Artist = require("../models/artistModel")
+const Festival = require("../models/festivalModel")
 
 
 async function getAllArtists(req, res) {
@@ -17,7 +18,8 @@ async function getArtistById(req, res) {
     if (!artist) {
       return res.status(404).send({ message: "Artist not found" })
     }
-    res.send(artist)
+    const festivals = await Festival.find({ artists: id })
+    res.send({ artist, festivals })
   } catch (error) {
     res.status(500).send({ message: error.message })
   }
