@@ -22,6 +22,10 @@ const festivalSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    image: {
+        type: String,
+        required: true,
+    },
     artists: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Artist'
