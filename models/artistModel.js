@@ -20,7 +20,7 @@ const artistSchema = new mongoose.Schema({
     image: {
         type: String,
         required: true,
-    }
+    },
 })
 
 const Artist = mongoose.model('Artist', artistSchema)

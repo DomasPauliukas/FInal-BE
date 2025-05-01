@@ -1,14 +1,18 @@
 const express = require('express')
 const { getAllFestivals, getFestivalById, createFestival, updateFestival, deleteFestival, addArtistToFestival } = require('../controllers/festivalController')
+const authMiddleware = require('../middlewares/authmiddleware')
+const rolesMiddleware = require('../middlewares/rolesMiddleware')
+const ROLES = require('../config/roles')
 
 
 const router = express.Router()
 
 router.get('/', getAllFestivals)
 router.get('/:id', getFestivalById)
-router.post('/', createFestival)
-router.put('/:id', updateFestival)
-router.delete('/:id', deleteFestival)
+
+router.post('/', authMiddleware, rolesMiddleware(ROLES.ADMIN), createFestival)
+router.put('/:id', authMiddleware, rolesMiddleware(ROLES.ADMIN), updateFestival)
+router.delete('/:id', authMiddleware, rolesMiddleware(ROLES.ADMIN), deleteFestival)
 
 router.put('/:id/artists',addArtistToFestival)
 

@@ -80,9 +80,13 @@ const login = async (req, res) => {
 
         const token = jwt.sign(
             {
-                UserId: user._id,
+                userId: user._id,
                 email: user.email,
                 role: user.role,
+                name: user.name,
+                surname: user.surname,
+                age: user.age,
+                username: user.username,
             },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
@@ -107,7 +111,7 @@ const login = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    const { id } = req.user
+    const { id } = req.params
     const { username, name, surname, age } = req.body
 
     if (!username || !name || !surname || !age) {

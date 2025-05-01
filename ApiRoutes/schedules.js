@@ -1,13 +1,17 @@
 const express = require('express')
 const { getAllSchedules, getScheduleById, createSchedule, updateSchedule, deleteSchedule, getSchedulesByFestival } = require('../controllers/scheduleController')
+const authMiddleware = require('../middlewares/authmiddleware')
+const rolesMiddleware = require('../middlewares/rolesMiddleware')
+const ROLES = require('../config/roles')
 
 const router = express.Router()
 
 router.get('/', getAllSchedules)
 router.get('/:id', getScheduleById)
-router.post('/', createSchedule)
-router.put('/:id', updateSchedule)
-router.delete('/:id', deleteSchedule)
+
+router.post('/', authMiddleware, rolesMiddleware(ROLES.ADMIN), createSchedule)
+router.put('/:id', authMiddleware, rolesMiddleware(ROLES.ADMIN), updateSchedule)
+router.delete('/:id', authMiddleware, rolesMiddleware(ROLES.ADMIN), deleteSchedule)
 router.get('/festival/:festivalId', getSchedulesByFestival)
 
 module.exports = router

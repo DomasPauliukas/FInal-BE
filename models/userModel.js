@@ -55,6 +55,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
+    tickets: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ticket',
+    }]
 }, {timestamps: true})
 
 const User = mongoose.model('User', userSchema)
