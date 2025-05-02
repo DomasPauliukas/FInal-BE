@@ -69,10 +69,26 @@ async function deleteStage(req, res) {
   }
 }
 
+async function getStagesByFestival(req, res) {
+  try {
+    const { festivalId } = req.params
+    const stages = await Stage.find({ festivalId })
+        .populate('festivalId')
+
+    if (!stages) {
+      return res.status(404).send({ message: "Stages not found" })
+    }
+    res.send(stages)
+  } catch (error) {
+    res.status(500).send({ message: error.message })
+  }
+}
+
 module.exports = {
   getAllStages,
   getStageById,
   createStage,
   updateStage,
-  deleteStage
+  deleteStage,
+  getStagesByFestival
 }
