@@ -20,6 +20,10 @@ const artistSchema = new mongoose.Schema({
     image: {
         type: String,
         required: true,
+    },
+    hits: {
+        type: [String],
+        required: true,
     }
 })
 

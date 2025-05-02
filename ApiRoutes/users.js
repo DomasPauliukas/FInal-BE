@@ -9,9 +9,9 @@ const router = express.Router()
 router.post('/register', register)
 router.post('/login', login)
 router.put('/:id', authMiddleware, updateUser)
+router.get('/:id', authMiddleware, getUserById)
 
 router.get('/', authMiddleware, rolesMiddleware(ROLES.ADMIN), getAllUsers)
-router.get('/:id', authMiddleware, rolesMiddleware(ROLES.ADMIN), getUserById)
 router.delete('/:id', authMiddleware, rolesMiddleware(ROLES.ADMIN), deleteUser)
 
 router.get('/my-festivals', authMiddleware, getUserFestivals)
