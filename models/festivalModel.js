@@ -10,12 +10,8 @@ const festivalSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    startDate: {
-        type: Date,
-        required: true
-    },
-    endDate: {
-        type: Date,
+    date: {
+        type: String,
         required: true
     },
     description: {

@@ -78,7 +78,7 @@ async function getSchedulesByFestival(req, res) {
 
     const schedules = await Schedule.find({ festivalId })
         .populate('stageId', 'name capacity')
-        .populate('artistId', 'name genre')
+        .populate('artistId', 'name genre country')
         .populate('festivalId', 'name')
 
     if (!schedules) {
