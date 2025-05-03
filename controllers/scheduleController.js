@@ -1,4 +1,5 @@
 const Schedule = require("../models/scheduleModel")
+const Festival = require("../models/festivalModel")
 
 async function getAllSchedules(req, res) {
   try {
@@ -51,7 +52,14 @@ async function updateSchedule(req, res) {
     )
     if (!updatedSchedule) {
       return res.status(404).send({ message: "Schedule not found" })
-    } 
+    }
+
+    await Festival.findByIdAndUpdate(updatedSchedule.festivalId, { 
+      $addToSet: { 
+        artists: updatedSchedule.artistId,
+        stages: updatedSchedule.stageId 
+      }
+   })
 
     res.send(updatedSchedule)
   } catch (error) {
@@ -66,6 +74,14 @@ async function deleteSchedule(req, res) {
     if (!deletedSchedule) {
       return res.status(404).send({ message: "Schedule not found" })
     }
+
+    await Festival.findByIdAndUpdate(deletedSchedule.festivalId, {
+      $pull: { 
+        artists: deletedSchedule.artistId,
+        stages: deletedSchedule.stageId 
+      }
+    })
+    
     res.send(deletedSchedule)
   } catch (error) {
     res.status(500).send({ message: error.message })
