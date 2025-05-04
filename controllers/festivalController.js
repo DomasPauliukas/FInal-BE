@@ -1,4 +1,6 @@
 const Festival = require("../models/festivalModel")
+const Stage = require("../models/stageModel")
+const Schedule = require("../models/scheduleModel")
 
 async function getAllFestivals(req, res) { 
   try {
@@ -58,6 +60,10 @@ async function deleteFestival(req, res) {
     if (!deletedFestival) {
       return res.status(404).send({ message: "Festival not found" })
     }
+
+    await Stage.deleteMany({ festivalId: id })
+    await Schedule.deleteMany({ festivalId: id })
+
     res.send(deletedFestival)
   } catch (error) {
     res.status(500).send({ message: error.message })
