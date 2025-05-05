@@ -106,11 +106,28 @@ async function buyTicket(req, res) {
   }
 }
 
+async function getTicketsByUserId(req, res) {
+  try {
+    const userId = req.user.userId
+    const tickets = await Ticket.find({ userId })
+        .populate('festivalId')
+        .populate('userId')
+
+    if (!tickets) {
+      return res.status(404).send({ message: "No tickets found for this user" })
+    }
+    res.send(tickets)
+  } catch (error) {
+    res.status(500).send({ message: error.message })
+  }
+}
+
 module.exports = {
   getAllTickets,
   getTicketById,
   createTicket,
   updateTicket,
   deleteTicket,
-  buyTicket
+  buyTicket,
+  getTicketsByUserId
 }
