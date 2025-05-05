@@ -1,3 +1,4 @@
+const Festival = require("../models/festivalModel")
 const Ticket = require("../models/ticketModel")
 
 
@@ -71,10 +72,45 @@ async function deleteTicket(req, res) {
   }
 }
 
+async function buyTicket(req, res) {
+  try {
+    const { ticketType, quantity, festivalId } = req.body
+    const userId = req.user._id
+
+    const festival = await Festival.findById(festivalId)
+    if (!festival) {
+      return res.status(404).send({ message: "Festival not found" })
+    }
+
+    let price
+    if (ticketType === "VIP") {
+      price = festival.vipPrice * quantity
+    } else if (ticketType === "Regular") {
+      price = festival.regularPrice * quantity
+    } else {
+      return res.status(400).send({ message: "Invalid ticket type" })
+    }
+
+    const ticket = new Ticket({
+      ticketType,
+      price,
+      quantity,
+      festivalId,
+      userId
+    })
+    await ticket.save()
+
+    res.send(ticket)
+  } catch (error) {
+    res.status(500).send({ message: error.message })
+  }
+}
+
 module.exports = {
   getAllTickets,
   getTicketById,
   createTicket,
   updateTicket,
-  deleteTicket
+  deleteTicket,
+  buyTicket
 }
