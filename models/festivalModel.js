@@ -18,6 +18,14 @@ const festivalSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    regularPrice: {
+        type: Number,
+        required: true
+    },
+    vipPrice: {
+        type: Number,
+        required: true
+    },
     image: {
         type: String,
         required: true,

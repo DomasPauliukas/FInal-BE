@@ -1,6 +1,7 @@
 const Festival = require("../models/festivalModel")
 const Stage = require("../models/stageModel")
 const Schedule = require("../models/scheduleModel")
+const Ticket = require("../models/ticketModel")
 
 async function getAllFestivals(req, res) { 
   try {
@@ -63,6 +64,7 @@ async function deleteFestival(req, res) {
 
     await Stage.deleteMany({ festivalId: id })
     await Schedule.deleteMany({ festivalId: id })
+    await Ticket.deleteMany({ festivalId: id })
 
     res.send(deletedFestival)
   } catch (error) {
