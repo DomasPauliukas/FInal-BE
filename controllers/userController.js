@@ -146,6 +146,14 @@ const updateUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.find()
+            .populate({
+                path: 'tickets',
+                populate: {
+                    path: 'festivalId',
+                    select: 'name'
+                }
+            })
+                
         res.status(200).send(users)
     } catch (error) {
         res.status(500).send({ message: 'Server error', error })

@@ -1,6 +1,6 @@
 const Festival = require("../models/festivalModel")
 const Ticket = require("../models/ticketModel")
-
+const User = require("../models/userModel")
 
 async function getAllTickets(req, res) {
   try {
@@ -66,6 +66,14 @@ async function deleteTicket(req, res) {
     if (!deletedTicket) {
       return res.status(404).send({ message: "Ticket not found" })
     }
+
+    const user = await User.findById(deletedTicket.userId)
+    if (!user) {
+      return res.status(404).send({ message: "User not found" })
+    }
+    user.tickets = user.tickets.filter(ticketId => ticketId.toString() !== id)
+    await user.save()
+    
     res.send(deletedTicket)
   } catch (error) {
     res.status(500).send({ message: error.message })
@@ -76,6 +84,10 @@ async function buyTicket(req, res) {
   try {
     const { ticketType, quantity, festivalId } = req.body
     const userId = req.user.userId
+
+    if (!userId) {
+      return res.status(400).send({ message: 'User ID is missing or invalid' })
+    }
 
     const festival = await Festival.findById(festivalId)
     if (!festival) {
@@ -100,7 +112,16 @@ async function buyTicket(req, res) {
     })
     await ticket.save()
 
-    res.send(ticket)
+    await User.findByIdAndUpdate(
+      userId,
+      { $push: { tickets: ticket._id } },
+      { new: true }
+    )
+
+    const updatedUser = await User.findById(userId)
+        .populate('tickets')
+
+    res.send(updatedUser)
   } catch (error) {
     res.status(500).send({ message: error.message })
   }
