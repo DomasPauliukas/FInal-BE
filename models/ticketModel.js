@@ -6,13 +6,13 @@ const ticketSchema = new mongoose.Schema({
         enum: ['VIP', 'Regular'],
         required: true
     },
-    days: {
-        type: String,
-        enum: ['1-day', '2-day', 'Full-Pass'],
-        required: true
-    },
     price: {
         type: Number,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        default: 1,
         required: true
     },
     purchaseAt: {
