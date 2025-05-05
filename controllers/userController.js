@@ -181,6 +181,8 @@ const deleteUser = async (req, res) => {
             return res.status(404).send({ message: 'User not found' })
         }
 
+        await Ticket.deleteMany({ userId: deletedUser._id })
+
         res.status(200).send({
             message: 'User deleted successfully',
             user: deletedUser

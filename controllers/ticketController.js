@@ -75,7 +75,7 @@ async function deleteTicket(req, res) {
 async function buyTicket(req, res) {
   try {
     const { ticketType, quantity, festivalId } = req.body
-    const userId = req.user._id
+    const userId = req.user.userId
 
     const festival = await Festival.findById(festivalId)
     if (!festival) {
