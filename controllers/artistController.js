@@ -1,5 +1,6 @@
 const Artist = require("../models/artistModel")
 const Festival = require("../models/festivalModel")
+const Schedule = require("../models/scheduleModel")
 
 
 async function getAllArtists(req, res) {
@@ -61,6 +62,14 @@ async function deleteArtist(req, res) {
     if (!deletedArtist) {
       return res.status(404).send({ message: "Artist not found" })
     }
+
+    await Schedule.deleteMany({ artistId: id })
+
+    await Festival.updateMany(
+      { artists: id },
+      { $pull: { artists: id } }
+    )
+
     res.send(deletedArtist)
   } catch (error) {
     res.status(500).send({ message: error.message })
