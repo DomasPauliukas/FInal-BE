@@ -1,3 +1,5 @@
+const Festival = require("../models/festivalModel")
+const Schedule = require("../models/scheduleModel")
 const Stage = require("../models/stageModel")
 
 
@@ -58,12 +60,31 @@ async function updateStage(req, res) {
 
 async function deleteStage(req, res) {
   try {
-    const { id } = req.params
-    const deletedStage = await Stage.findByIdAndDelete(id)
-    if (!deletedStage) {
-      return res.status(404).send({ message: "Stage not found" })
+    const stageId = req.params.id
+
+    const stage = await Stage.findById(stageId)
+    if (!stage) {
+      return res.status(404).send({ message: 'Stage not found' })
     }
-    res.send(deletedStage)
+
+    const festivalId = stage.festivalId
+
+    const relatedSchedules = await Schedule.find({ stageId })
+    const artistIdsToRemove = relatedSchedules.map(s => s.artistId)
+
+    await Schedule.deleteMany({ stageId })
+
+    await Stage.findByIdAndDelete(stageId)
+
+    await Festival.findByIdAndUpdate(festivalId, {
+      $pull: { stages: stageId }
+    })
+
+    await Festival.findByIdAndUpdate(festivalId, {
+      $pull: { artists: { $in: artistIdsToRemove } }
+    })
+    
+    res.send({ message: 'Stage deleted successfully' })
   } catch (error) {
     res.status(500).send({ message: error.message })
   }

@@ -36,6 +36,15 @@ async function createSchedule(req, res) {
     const schedule = new Schedule(req.body)
     await schedule.save()
 
+    const { festivalId, artistId, stageId } = req.body
+
+    await Festival.findByIdAndUpdate(festivalId, {
+      $addToSet: { 
+        artists: artistId,
+        stages: stageId 
+      }
+    }, { new: true })
+
     res.send(schedule)
   } catch (error) {
     res.status(400).send({ message: error.message })
