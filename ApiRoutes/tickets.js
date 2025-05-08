@@ -1,6 +1,6 @@
 const express = require('express')
 const { getTicketById, createTicket, updateTicket, deleteTicket, getAllTickets, buyTicket, getTicketsByUserId } = require('../controllers/ticketController')
-const authMiddleware = require('../middlewares/authmiddleware')
+const authMiddleware = require('../middlewares/authMiddleware')
 const rolesMiddleware = require('../middlewares/rolesMiddleware')
 const ROLES = require('../config/roles')
 const router = express.Router()

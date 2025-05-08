@@ -1,6 +1,6 @@
 const express = require('express')
 const { register, login, getAllUsers, getUserById, updateUser, deleteUser, getUserFestivals } = require('../controllers/userController')
-const authMiddleware = require('../middlewares/authmiddleware')
+const authMiddleware = require('../middlewares/authMiddleware')
 const rolesMiddleware = require('../middlewares/rolesMiddleware')
 const ROLES = require('../config/roles')
 

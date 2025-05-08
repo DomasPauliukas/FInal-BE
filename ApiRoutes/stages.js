@@ -1,6 +1,6 @@
 const express = require('express')
 const { getAllStages, getStageById, createStage, updateStage, deleteStage, getStagesByFestival } = require('../controllers/stageController')
-const authMiddleware = require('../middlewares/authmiddleware')
+const authMiddleware = require('../middlewares/authMiddleware')
 const rolesMiddleware = require('../middlewares/rolesMiddleware')
 const ROLES = require('../config/roles')
 

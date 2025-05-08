@@ -1,6 +1,6 @@
 const express = require('express')
 const { getAllFestivals, getFestivalById, createFestival, updateFestival, deleteFestival, addArtistToFestival } = require('../controllers/festivalController')
-const authMiddleware = require('../middlewares/authmiddleware')
+const authMiddleware = require('../middlewares/authMiddleware')
 const rolesMiddleware = require('../middlewares/rolesMiddleware')
 const ROLES = require('../config/roles')
 

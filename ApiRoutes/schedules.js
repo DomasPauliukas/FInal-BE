@@ -1,6 +1,6 @@
 const express = require('express')
 const { getAllSchedules, getScheduleById, createSchedule, updateSchedule, deleteSchedule, getSchedulesByFestival } = require('../controllers/scheduleController')
-const authMiddleware = require('../middlewares/authmiddleware')
+const authMiddleware = require('../middlewares/authMiddleware')
 const rolesMiddleware = require('../middlewares/rolesMiddleware')
 const ROLES = require('../config/roles')
 

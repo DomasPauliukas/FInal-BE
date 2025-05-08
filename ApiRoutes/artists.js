@@ -1,6 +1,6 @@
 const express = require('express')
 const { getAllArtists, getArtistById, deleteArtist, updateArtist, createArtist } = require('../controllers/artistController')
-const authMiddleware = require('../middlewares/authmiddleware')
+const authMiddleware = require('../middlewares/authMiddleware')
 const rolesMiddleware = require('../middlewares/rolesMiddleware')
 const ROLES = require('../config/roles')
 const router = express.Router()
